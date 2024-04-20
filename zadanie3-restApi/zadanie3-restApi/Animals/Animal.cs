@@ -2,7 +2,7 @@
 
 namespace zadanie3_restApi.Animals;
 
-public class Animals
+public class Animal
 {
     
     public int IdAnimal { get; set; }

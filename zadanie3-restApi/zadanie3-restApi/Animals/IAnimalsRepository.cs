@@ -2,5 +2,5 @@
 
 public interface IAnimalsRepository
 {
-    IEnumerable<Animals> GetAnimals();
+    IEnumerable<Animal> GetAnimals();
 }

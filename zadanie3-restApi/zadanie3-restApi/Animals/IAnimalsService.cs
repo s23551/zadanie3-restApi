@@ -2,5 +2,5 @@
 
 public interface IAnimalsService
 {
-    IEnumerable<Animals> GetAnimals();
+    IEnumerable<Animal> GetAnimals();
 }

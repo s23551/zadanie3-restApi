@@ -8,7 +8,7 @@ public class AnimalsService : IAnimalsService
     {
         _animalsRepository = animalsRepository;
     }
-    public IEnumerable<Animals> GetAnimals()
+    public IEnumerable<Animal> GetAnimals()
     {
         return _animalsRepository.GetAnimals();
     }
