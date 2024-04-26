@@ -13,10 +13,40 @@ public class AnimalsController : ControllerBase
         _animalsService = animalsService;
     }
 
-    [HttpGet]
-    public IActionResult GetAnimals()
+    [HttpGet("")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult GetAnimals([FromQuery] string? orderBy)
     {
-        var animals = _animalsService.GetAnimals();
-        return Ok(animals);
+        if (orderBy != null || orderBy != "")
+        {
+            return Ok(_animalsService.GetAnimals(orderBy));
+        }
+        else
+        {
+            return Ok(_animalsService.GetAnimals("default"));
+        }
     }
+
+    [HttpPost]
+    public IActionResult CreateAnimal([FromBody] AnimalDTO dto)
+    {
+        var success = _animalsService.AddAnimal(dto);
+        return success ? StatusCode(StatusCodes.Status201Created) : Conflict();
+    }
+
+    [HttpPut("{idAnimal:int}")]
+    public IActionResult UpdateAnimal([FromBody] AnimalDTO dto, [FromRoute] int idAnimal)
+    {
+        var success = _animalsService.UpdateAnimal(idAnimal, dto);
+        var animal = _animalsService.GetAnimal(idAnimal);
+        return success ? Ok(animal) : Conflict();
+    }
+
+    [HttpDelete("{idAnimal:int}")]
+    public IActionResult DeleteAnimal([FromRoute] int idAnimal)
+    {
+        var success = _animalsService.DeleteAnimal(idAnimal);
+        return success ? Ok() : Conflict("Not found");
+    }
+    
 }
